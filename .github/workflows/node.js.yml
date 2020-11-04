@@ -28,15 +28,6 @@ jobs:
 
      - name: Clean install dependencies
        run: npm ci
-    
-     - name: Codecov
-       uses: codecov/codecov-action@v1.0.14
-      
-     - name: Run the tests and generate coverage report
-       run: npm test -- --coverage
-      
-     - name: Upload coverage to Codecov
-       uses: codecov/codecov-action@v1
       
      - run: npm run build --if-present
      - run: npm test
