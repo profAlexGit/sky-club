@@ -29,7 +29,7 @@ jobs:
      - name: Clean install dependencies
        run: npm ci
       
-     - run: npm run build --if-present
+     - run: npx ember build
      - run: npm test
      - name: Deploy
        run: sh ./scripts/deploy.sh
