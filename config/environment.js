@@ -4,7 +4,7 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'sky-club',
     environment,
-    rootURL: '/',
+    rootURL: '/sky-club',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
