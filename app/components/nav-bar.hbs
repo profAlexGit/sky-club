@@ -1,0 +1,35 @@
+<BsNavbar 
+	@type="dark" 
+	@backgroundColor="dark" 
+	as |navbar| 
+>
+	<div class="navbar-header">
+		<navbar.toggle />
+		<a class="navbar-brand" href="#">Brand</a>
+	</div>
+	<navbar.content>
+		<navbar.nav class="navigation" as |nav|>
+			<nav.item>
+				<nav.linkTo @route="index">Главная</nav.linkTo>
+			</nav.item>
+			<nav.item>
+				<nav.linkTo @route="about">О клубе</nav.linkTo>
+			</nav.item>
+			<nav.item>
+				<nav.linkTo @route="meets">Встречи</nav.linkTo>
+			</nav.item>
+			<nav.item>
+				<nav.linkTo @route="archive">Архив</nav.linkTo>
+			</nav.item>
+		</navbar.nav>
+
+		<navbar.nav as |nav|>
+			<nav.item>
+				<nav.linkTo @route="authorization">Войти</nav.linkTo>
+			</nav.item>
+		</navbar.nav>
+
+		
+
+	</navbar.content>
+</BsNavbar>
