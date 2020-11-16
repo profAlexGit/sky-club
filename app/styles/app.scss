@@ -1,5 +1,19 @@
 @import 'ember-bootstrap/bootstrap';
 
+$ember-basic-dropdown-content-z-index: 2000;
+
 .navigation {
 	flex: 1;
 }
+
+.spinner-simple {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@import "ember-power-select/themes/bootstrap";
+
+@import "ember-power-select";

@@ -1,0 +1,79 @@
+<h2>КНИГИ</h2>
+{{!-- <input type="text" class="form-control" value={{this.search}} {{on "change" (fn this.handleSearch e.target.value)}}> --}}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2">
+			<PowerSelect @options={{this.tags}} @selected={{this.tag}} value={{this.tag}} @onChange={{this.handleTagChange}} as |name|>
+				{{name}}
+			</PowerSelect>
+			<button type="button" class="btn btn-primary w-100 mt-3" {{on "click" this.handleCreateBook}}>
+				Создать
+			</button>
+		</div>
+
+		<div class="col-sm">
+			{{input type="text" class="form-control mb-3" placeholder="Search by Author Name" value=search}}
+
+			{{#if this.isLoading}}
+			<Spinner />
+			{{else}}
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Название</th>
+						<th scope="col">Автор</th>
+						<th scope="col">Теги</th>
+						<th scope="col">Кол-во страниц</th>
+						<th scope="col">Рейтинг</th>
+						<th scope="col">Действия</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each this.model as |book|}}
+					<tr>
+						<th scope="row">{{book.id}}</th>
+						<td>{{book.title}}</td>
+						<td>{{book.authorName}}</td>
+						<td>{{book.tags}}</td>
+						<td>{{book.pages}}</td>
+						<td>{{book.raiting}}</td>
+						<td>
+							<button type="button" class="btn btn-primary w-100" {{on "click" (fn this.handleUpdateClick book.id) }}>
+								редактировать
+							</button>
+							<button type="button" class="btn btn-danger w-100 mt-3" {{on "click" (fn this.handleDeleteBook book.id) }}>
+								удалить
+							</button>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+			{{/if}}
+
+			<BsModal @open={{this.isUpdate}} as |Modal|>
+				<Modal.header>
+					<h4 class="modal-title"> Alert</h4>
+				</Modal.header>
+				<Modal.body>
+					<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.submitUpdateHandler}} as |form|>
+						<form.element @controlType="text" @label="Название" @placeholder="Название" @property="title" @required={{true}} />
+						<form.element class="power" @controlType="power-select" @property="author" @label="Автор" @options={{authors}} @optionLabelPath="fullName" />
+						<form.element @controlType="number" @label="Кол-во страниц" @placeholder="" @property="pages" @required={{true}} />
+						<form.element @controlType="url" @label="Обложка" @placeholder="http://..." @property="cover" @required={{true}} />
+						<form.element @controlType="textarea" @label="Описание" @property="description" />
+					</BsForm>
+				</Modal.body>
+				<Modal.footer as |footer|>
+					<BsButton @type="danger" @onClick={{action this.closeModal}}>Отменить</BsButton>
+					<BsButton @type="success" @onClick={{action Modal.submit}}>Сохранить</BsButton>
+				</Modal.footer>
+			</BsModal>
+		</div>
+	</div>
+
+</div>
+
+
+{{outlet}}
