@@ -10,12 +10,14 @@ export default class SpeakersController extends Controller {
 	@tracked isUpdate = false;
 	@tracked currentSpeaker = null;
 	@tracked search = '';
+	modalTitle = '';
 
 	@tracked firstName;
 	@tracked lastName;
 
 	@action
 	handleCreateSpeaker() {
+		this.modalTitle = 'Добавление';
 		this.firstName = '';
 		this.lastName = '';
 		this.isUpdate = true;
@@ -23,6 +25,7 @@ export default class SpeakersController extends Controller {
 
 	@action
 	async handleUpdateClick(id) {
+		this.modalTitle = 'Редактирование';
 		this.currentSpeaker = await this.store.peekRecord('speakers', id);
 		this.firstName = this.currentSpeaker.firstName;
 		this.lastName = this.currentSpeaker.lastName;

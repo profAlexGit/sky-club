@@ -52,9 +52,9 @@
 			</table>
 			{{/if}}
 
-			<BsModal @open={{this.isUpdate}} as |Modal|>
+			<BsModal @onHidden={{action this.closeModal}} @open={{this.isUpdate}} as |Modal|>
 				<Modal.header>
-					<h4 class="modal-title"> Alert</h4>
+					<h4 class="modal-title"> {{this.modalTitle}}</h4>
 				</Modal.header>
 				<Modal.body>
 					<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.submitUpdateHandler}} as |form|>

@@ -7,6 +7,7 @@ export default class BooksController extends Controller {
 	@service store;
 	@service booksService;
 	queryParams = ['search', 'tag'];
+	modalTitle = '';
 
 	@tracked search = '';
 	@tracked tag = 'all';
@@ -34,6 +35,7 @@ export default class BooksController extends Controller {
 
 	@action
 	async handleCreateBook() {
+		this.modalTitle = 'Добавление';
 		this.title = '';
 		this.pages = '';
 		this.cover = '';
@@ -49,6 +51,7 @@ export default class BooksController extends Controller {
 
 	@action
 	async handleUpdateClick(id) {
+		this.modalTitle = 'Редактирование';
 		this.currentBook = await this.store.peekRecord('books', id);
 		this.title = this.currentBook.title;
 		this.pages = this.currentBook.pages;
