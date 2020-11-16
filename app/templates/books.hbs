@@ -6,7 +6,7 @@
 			<PowerSelect @options={{this.tags}} @selected={{this.tag}} value={{this.tag}} @onChange={{this.handleTagChange}} as |name|>
 				{{name}}
 			</PowerSelect>
-			<button type="button" class="btn btn-primary w-100 mt-3" {{on "click" this.handleCreateBook}}>
+			<button type="button" class="btn btn-primary w-100 mt-3" {{on "click" (fn this.handleLoadBookForm null)}}>
 				Создать
 			</button>
 		</div>
@@ -39,7 +39,7 @@
 						<td>{{book.pages}}</td>
 						<td>{{book.raiting}}</td>
 						<td>
-							<button type="button" class="btn btn-primary w-100" {{on "click" (fn this.handleUpdateClick book.id) }}>
+							<button type="button" class="btn btn-primary w-100" {{on "click" (fn this.handleLoadBookForm book.id) }}>
 								редактировать
 							</button>
 							<button type="button" class="btn btn-danger w-100 mt-3" {{on "click" (fn this.handleDeleteBook book.id) }}>

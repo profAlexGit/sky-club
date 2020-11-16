@@ -24,7 +24,7 @@ export default class BooksSerializer extends ApplicationSerializer {
 
 	serialize(snapshot, options) {
 		let json = super.serialize(...arguments);
-		if (json.tags) {
+		if (json.tags?.length > 0) {
 			json.tags = json.tags.split(',');
 		} else {
 			json.tags = [];

@@ -24,6 +24,40 @@ export default class BooksController extends Controller {
 
 	tags = ['all', 'detective', 'novel', 'adventures'];
 
+	getAuthor = async (currentBook) => {
+		if (currentBook) {
+			return await this.store.peekRecord('authors', currentBook.authors.id);
+		}
+
+		return this.authors[0];
+	};
+
+	initialFormData = async (book) => {
+		this.modalTitle = book ? 'Редактирование' : 'Добавление';
+		this.title = book?.title || '';
+		this.pages = book?.pages || '';
+		this.cover = book?.cover || '';
+		this.description = book?.description || '';
+		const authors = await this.store.findAll('authors');
+		this.authors = authors.map((author, index) => {
+			return authors.objectAt(index);
+		});
+
+		this.author = await this.getAuthor(book)
+		this.isUpdate = true;
+	};
+
+	getNewBookData = () => {
+		return {
+			title: this.title,
+			pages: this.pages,
+			cover: this.cover,
+			description: this.description,
+			authors: this.author,
+			authorsId: this.author.id,
+		};
+	};
+
 	async init() {
 		super.init(...arguments);
 	}
@@ -34,42 +68,18 @@ export default class BooksController extends Controller {
 	}
 
 	@action
-	async handleCreateBook() {
-		this.modalTitle = 'Добавление';
-		this.title = '';
-		this.pages = '';
-		this.cover = '';
-		this.description = '';
-		const authors = await this.store.findAll('authors');
-		this.authors = authors.map((author, index) => {
-			return authors.objectAt(index);
-		});
+	async handleLoadBookForm(id) {
+		if (id) {
+			this.currentBook = await this.store.peekRecord('books', id);
+			return this.initialFormData(this.currentBook);
+		}
 
-		this.author = this.authors[0];
-		this.isUpdate = true;
-	}
-
-	@action
-	async handleUpdateClick(id) {
-		this.modalTitle = 'Редактирование';
-		this.currentBook = await this.store.peekRecord('books', id);
-		this.title = this.currentBook.title;
-		this.pages = this.currentBook.pages;
-		this.cover = this.currentBook.cover;
-		this.description = this.currentBook.description;
-		const authors = await this.store.findAll('authors');
-		this.authors = authors.map((author, index) => {
-			return authors.objectAt(index);
-		});
-
-		this.author = await this.store.peekRecord('authors', this.currentBook.authors.id);
-		this.isUpdate = true;
+		this.initialFormData();
 	}
 
 	@action
 	async handleDeleteBook(id) {
-		const book = this.store.peekRecord('books', id);
-		book.destroyRecord();
+		this.booksService.deleteBook(this.store, id);
 	}
 
 	@action
@@ -79,46 +89,15 @@ export default class BooksController extends Controller {
 	}
 
 	@action
-	async submitUpdateHandler(props) {
+	async submitUpdateHandler() {
 		let self = this;
+		const newBook = this.getNewBookData();
 		if (!this.currentBook) {
-			const book = await this.store.createRecord('books', {
-				title: this.title,
-				pages: this.pages,
-				cover: this.cover,
-				description: this.description,
-				authors: {
-					id: this.author.id,
-					firstName: this.author.firstName,
-					lastName: this.author.lastName,
-				},
-			});
-			book.save().then(function (book) {
-				self.transitionToRoute('books', book);
-			});
+			await this.booksService.addBook(this.store, newBook, self);
 		} else {
-			const book = await this.store.findRecord('books', this.currentBook.id).then((book) => {
-				console.log(props);
-				this.currentBook.authorsId = this.author.id;
-				const {pages, description, cover} = this.currentBook;
-				book.title = this.title;
-				book.pages = this.pages;
-				book.authors = {
-					id: this.author.id,
-					firstName: this.author.firstName,
-					lastName: this.author.lastName,
-				};
-				book.authorsId = this.author.id;
-				book.description = this.description;
-				book.cover = this.cover;
-
-				book.save().then(function () {
-					self.transitionToRoute('books');
-				});
-				// delete this.currentBook.authors;
-			});
+			await this.booksService.updateBook(this.store, this.currentBook.id, newData);
 		}
-		// this.model.books = await this.booksService.fetchBooks(this.store);
+		
 		this.closeModal();
 		this.currentBook = null;
 		this.author = null;
