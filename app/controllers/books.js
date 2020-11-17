@@ -95,7 +95,7 @@ export default class BooksController extends Controller {
 		if (!this.currentBook) {
 			await this.booksService.addBook(this.store, newBook, self);
 		} else {
-			await this.booksService.updateBook(this.store, this.currentBook.id, newData);
+			await this.booksService.updateBook(this.store, this.currentBook.id, newBook);
 		}
 		
 		this.closeModal();

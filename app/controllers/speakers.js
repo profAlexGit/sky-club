@@ -46,8 +46,8 @@ export default class SpeakersController extends Controller {
 				firstName: this.firstName,
 				lastName: this.lastName,
 			});
-			speaker.save().then(function (book) {
-				self.transitionToRoute('speakers', speaker);
+			speaker.save().then(function () {
+				self.transitionToRoute('speakers');
 			});
 		} else {
 			const speaker = await this.store
