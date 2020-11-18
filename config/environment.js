@@ -5,7 +5,8 @@ module.exports = function(environment) {
 		modulePrefix: 'sky-club',
 		environment,
 		rootURL: '/sky-club',
-		locationType: 'hash',
+    locationType: 'hash',
+    ACTIONS_ALLOW_UNSECURE_COMMANDS: true,
 		EmberENV: {
 			FEATURES: {
 				// Here you can enable experimental features on an ember canary build
