@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import {tracked} from '@glimmer/tracking';
 import {action} from '@ember/object';
 
-
 export default class SpeakersController extends Controller {
 	queryParams = ['search'];
 
@@ -46,7 +45,8 @@ export default class SpeakersController extends Controller {
 				firstName: this.firstName,
 				lastName: this.lastName,
 			});
-			speaker.save().then(function () {
+			speaker.save().then(async function (data) {
+				self.send('refreshModel');
 				self.transitionToRoute('speakers');
 			});
 		} else {
@@ -56,7 +56,7 @@ export default class SpeakersController extends Controller {
 					speaker.firstName = this.firstName;
 					speaker.lastName = this.lastName;
 
-					speaker.save().then(function () {
+					speaker.save().then(function (data) {
 						self.transitionToRoute('speakers');
 					});
 				});

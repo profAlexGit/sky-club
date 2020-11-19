@@ -51,7 +51,8 @@ export default class BooksServiceService extends Service {
 		const newBook = await store.createRecord('books', {
 			...book,
 		});
-		newBook.save().then(function (book) {
+		newBook.save().then(function () {
+			context.send('refreshModel');
 			context.transitionToRoute('books');
 		});
 	}

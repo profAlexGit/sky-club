@@ -47,6 +47,11 @@ export default class SpeakersRoute extends Route {
 	}
 
 	@action
+	refreshModel() {
+		this.refresh();
+	}
+
+	@action
 	loading() {
 		return true;
 	}

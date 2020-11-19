@@ -31,7 +31,7 @@ export default class BooksRoute extends Route {
 		this.lastPromise = promise;
 		return {
 			isLoading: true,
-        };
+		};
 	}
 
 	setupController(controller, model) {
@@ -45,6 +45,11 @@ export default class BooksRoute extends Route {
 			controller.isLoading = false;
 			this.lastPromise = false;
 		}
+	}
+
+	@action
+	refreshModel() {
+		this.refresh();
 	}
 
 	@action
