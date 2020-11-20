@@ -4,9 +4,12 @@
 <Spinner />
 {{else}}
 
-<button type="button" class="btn btn-primary my-3" {{on "click" this.handleCreateSpeaker}}>
-	Создать
-</button>
+<LinkTo @route="speakers.create">
+	<button type="button" class="btn btn-primary my-3">
+		Создать
+	</button>
+</LinkTo>
+
 
 <table class="table">
 	<thead class="thead-dark">
@@ -22,9 +25,11 @@
 			<th scope="row">{{speaker.id}}</th>
 			<td>{{speaker.fullName}}</td>
 			<td>
-				<button type="button" class="btn btn-primary" {{on "click" (fn this.handleUpdateClick speaker.id) }}>
-					редактировать
-				</button>
+				<LinkTo @route="speakers.edit" @model={{speaker.id}}>
+					<button type="button" class="btn btn-primary">
+						редактировать
+					</button>
+				</LinkTo>
 				<button type="button" class="btn btn-danger" {{on "click" (fn this.handleDeleteSpeaker speaker.id) }}>
 					удалить
 				</button>
@@ -33,20 +38,6 @@
 		{{/each}}
 	</tbody>
 </table>
-
-<BsModal @onHidden={{action this.closeModal}} @open={{this.isUpdate}} as |Modal|>
-	<Modal.header>
-		<h4 class="modal-title">{{this.modalTitle}}</h4>
-	</Modal.header>
-	<Modal.body>
-		<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.submitUpdateHandler}} as |form|>
-			<form.element @controlType="text" @label="Имя" placeholder="Имя" @property="firstName" required/>
-			<form.element @controlType="text" @label="Фамилия" placeholder="Фамилия" @property="lastName" required/>
-		</BsForm>
-	</Modal.body>
-	<Modal.footer as |footer|>
-		<BsButton @type="danger" @onClick={{action this.closeModal}}>Отменить</BsButton>
-		<BsButton @type="success" @onClick={{action Modal.submit}}>Сохранить</BsButton>
-	</Modal.footer>
-</BsModal>
 {{/if}}
+
+{{outlet}}

@@ -1,14 +1,16 @@
 <h2>КНИГИ</h2>
-{{!-- <input type="text" class="form-control" value={{this.search}} {{on "change" (fn this.handleSearch e.target.value)}}> --}}
 <div class="container">
 	<div class="row">
 		<div class="col-sm-2">
 			<PowerSelect @options={{this.tags}} @selected={{this.tag}} value={{this.tag}} @onChange={{this.handleTagChange}} as |name|>
 				{{name}}
 			</PowerSelect>
-			<button type="button" class="btn btn-primary w-100 mt-3" {{on "click" (fn this.handleLoadBookForm null)}}>
-				Создать
-			</button>
+
+			<LinkTo @route="books.create">
+				<button type="button" class="btn btn-primary w-100 mt-3">
+					Создать
+				</button>
+			</LinkTo>
 		</div>
 
 		<div class="col-sm">
@@ -34,14 +36,17 @@
 					<tr>
 						<th scope="row">{{book.id}}</th>
 						<td>{{book.title}}</td>
-						<td>{{book.authorName}}</td>
+						<td>{{book.author.fullName}}</td>
 						<td>{{book.tags}}</td>
 						<td>{{book.pages}}</td>
 						<td>{{book.raiting}}</td>
 						<td>
-							<button type="button" class="btn btn-primary w-100" {{on "click" (fn this.handleLoadBookForm book.id) }}>
-								редактировать
-							</button>
+							<LinkTo @route="books.edit" @model={{book.id}}>
+								<button type="button" class="btn btn-primary w-100">
+									редактировать
+								</button>
+							</LinkTo>
+							
 							<button type="button" class="btn btn-danger w-100 mt-3" {{on "click" (fn this.handleDeleteBook book.id) }}>
 								удалить
 							</button>
@@ -51,29 +56,7 @@
 				</tbody>
 			</table>
 			{{/if}}
-
-			<BsModal @onHidden={{action this.closeModal}} @open={{this.isUpdate}} as |Modal|>
-				<Modal.header>
-					<h4 class="modal-title"> {{this.modalTitle}}</h4>
-				</Modal.header>
-				<Modal.body>
-					<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.submitUpdateHandler}} as |form|>
-						<form.element @controlType="text" @label="Название" @placeholder="Название" @property="title" @required={{true}} />
-						<form.element class="power" @controlType="power-select" @property="author" @label="Автор" @options={{authors}} @optionLabelPath="fullName" />
-						<form.element @controlType="number" @label="Кол-во страниц" @placeholder="" @property="pages" @required={{true}} />
-						<form.element @controlType="url" @label="Обложка" @placeholder="http://..." @property="cover" @required={{true}} />
-						<form.element @controlType="textarea" @label="Описание" @property="description" />
-					</BsForm>
-				</Modal.body>
-				<Modal.footer as |footer|>
-					<BsButton @type="danger" @onClick={{action this.closeModal}}>Отменить</BsButton>
-					<BsButton @type="success" @onClick={{action Modal.submit}}>Сохранить</BsButton>
-				</Modal.footer>
-			</BsModal>
 		</div>
 	</div>
-
 </div>
-
-
 {{outlet}}
