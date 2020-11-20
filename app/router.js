@@ -12,7 +12,6 @@ Router.map(function() {
   this.route('archive', {path: 'past-meetings'});
   this.route('authorization', {path: 'auth'});
   this.route('books');
-  this.route('404error', {path: "*path"});
   this.route('error404', {path: "*path"});
   this.route('speakers');
 });

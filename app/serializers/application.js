@@ -1,12 +1,31 @@
-import DS from 'ember-data';
-// import JSONAPISerializer from '@ember-data/serializer/json';
+import JSONSerializer from '@ember-data/serializer/json';
 
-// export default class ApplicationSerializer extends DS.JSONSerializer {
-// 	normalizeResponse(store, primaryModelClass, payload, id, requestType) {}
-// }
+export default class ApplicationSerializer extends JSONSerializer {
+	normalize(model, hash) {
+		return super.normalize(...arguments);
+	}
 
-export default class ApplicationSerializer extends DS.JSONSerializer {
-	normalizeFindRecordResponse(store, type, payload) {
-		return super.normalizeFindRecordResponse(...arguments);
+	keyForRelationship(key, typeClass, method) {
+		if (typeClass === 'belongsTo') {
+			return `${key}Id`;
+		}
+
+		return super.keyForRelationship(...arguments);
+	}
+
+	extractRelationship(relationshipModelName, relationshipHash) {
+		let hash = relationshipHash.id ? relationshipHash.id : relationshipHash;
+		return super.extractRelationship.call(this, relationshipModelName, hash);
+	}
+
+	serializeBelongsTo(snapshot, json, relationship) {
+		// super.serializeBelongsTo(...arguments);
+		let key = relationship.key;
+		let belongsTo = snapshot.belongsTo(key);
+
+		key = this.keyForRelationship
+			? this.keyForRelationship(key, 'belongsTo', 'serialize')
+			: key;
+		json[key] = isNone(belongsTo) ? belongsTo : parseInt(belongsTo.record.get('id'));
 	}
 }
