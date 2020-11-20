@@ -11,7 +11,13 @@ Router.map(function() {
   this.route('about');
   this.route('archive', {path: 'past-meetings'});
   this.route('authorization', {path: 'auth'});
-  this.route('books');
+  this.route('books', function() {
+    this.route('edit', {path: '/:id/edit'});
+    this.route('create');
+  });
   this.route('error404', {path: "*path"});
-  this.route('speakers');
+  this.route('speakers', function() {
+    this.route('edit', {path: '/:id/edit'});
+    this.route('create');
+  });
 });

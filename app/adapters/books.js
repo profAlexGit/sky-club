@@ -6,12 +6,12 @@ export default class BooksAdapter extends ApplicationAdapter {
 	}
 
 	async findRecord(store, type, id, snapshot) {
-		const book = await fetch(`${this.host}/books/${id}?_expand=authors`);
+		const book = await fetch(`${this.host}/books/${id}?_expand=author`);
 		return book.json();
 	}
 	
 	async query(store, type, query) {
-		const queryParams = ['_expand=authors'];
+		const queryParams = ['_expand=author'];
 		Object.keys(query).forEach((value) => {
 			queryParams.push(`${value}=${query[value]}`)
 		});

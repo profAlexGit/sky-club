@@ -6,17 +6,22 @@ export default class SpeakersRoute extends Route {
 	queryParams = {
 		search: {
 			refreshModel: true,
-		}
-    };
-    
+		},
+	};
+
+	searchSpeaker(search) {
+		const queryParams = {q: search};
+		return this.store.query('speaker', queryParams);
+	}
+
 	async model({search}) {
-        let options = {};
-        if (search) {
-            options.q = search;
-        }
+		let options = {};
+		if (search) {
+			options.q = search;
+		}
 
 		let promise = new Promise((res, rej) => {
-			res(this.store.query('speakers', options));
+			res(search ? this.searchSpeaker(search) : this.store.findAll('speaker'));
 		})
 			.then((data) => {
 				this.controller.model = data;

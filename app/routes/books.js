@@ -15,9 +15,20 @@ export default class BooksRoute extends Route {
 		},
 	};
 
+	searchBooks(search, tag) {
+		const queryParams = {};
+		if (search) {
+			queryParams.q = search;
+		}
+		if (tag && tag !== 'all') {
+			queryParams.tags_like = tag;
+		}
+		return this.store.query('book', queryParams);
+	}
+
 	async model({search, tag}) {
 		let promise = new Promise((res, rej) => {
-			res(this.booksService.fetchBooks(this.store, search, tag));
+			res((search || tag !== 'all') ? this.searchBooks(search, tag) : this.store.findAll('book'));
 		})
 			.then((data) => {
 				this.controller.model = data;

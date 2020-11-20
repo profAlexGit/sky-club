@@ -1,4 +1,5 @@
 import JSONSerializer from '@ember-data/serializer/json';
+import {isNone} from '@ember/utils';
 
 export default class ApplicationSerializer extends JSONSerializer {
 	normalize(model, hash) {
@@ -19,7 +20,6 @@ export default class ApplicationSerializer extends JSONSerializer {
 	}
 
 	serializeBelongsTo(snapshot, json, relationship) {
-		// super.serializeBelongsTo(...arguments);
 		let key = relationship.key;
 		let belongsTo = snapshot.belongsTo(key);
 

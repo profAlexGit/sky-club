@@ -20,13 +20,13 @@ export default class BooksServiceService extends Service {
 		if (tag && tag !== 'all') {
 			queryParams.tags_like = tag;
 		}
-		const books = await store.query('books', queryParams); //
+		const books = await store.query('book', queryParams);
 		return books;
 	}
 
 	async updateBook(store, id, data) {
 		const {title, pages, authorsId, authors, description, cover} = data;
-		await store.findRecord('books', id).then(async (book) => {
+		await store.findRecord('book', id).then(async (book) => {
 			book.title = title;
 			book.pages = pages;
 			book.authors = {
@@ -43,7 +43,7 @@ export default class BooksServiceService extends Service {
 	}
 
 	async deleteBook(store, id) {
-		const book = await store.peekRecord('books', id);
+		const book = await store.peekRecord('book', id);
 		await book.destroyRecord();
 	}
 
@@ -53,7 +53,7 @@ export default class BooksServiceService extends Service {
 		});
 		newBook.save().then(function () {
 			context.send('refreshModel');
-			context.transitionToRoute('books');
+			context.transitionToRoute('book');
 		});
 	}
 }

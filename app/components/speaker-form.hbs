@@ -1,0 +1,4 @@
+<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.saveSpeaker}} as |form|>
+    <form.element @controlType="text" @label="Имя" placeholder="Имя" @property="firstName" required />
+    <form.element @controlType="text" @label="Фамилия" placeholder="Фамилия" @property="lastName" required />
+</BsForm>

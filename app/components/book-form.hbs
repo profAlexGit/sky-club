@@ -1,0 +1,12 @@
+<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.saveBook}} as |form|>
+    <form.element @controlType="text" @label="Название" @placeholder="Название" @property="title" @required={{true}} />
+    <form.group>
+        <label class="control-label">Автор</label>
+        <PowerSelect @searchEnabled={{true}} @onChange={{fn (mut this.author)}} @selected={{this.author}} @search={{action "searchAuthor"}} as |author|>
+            {{author.lastName}} {{author.firstName}}
+        </PowerSelect>
+    </form.group>
+    <form.element @controlType="number" @label="Кол-во страниц" @placeholder="" @property="pages" @required={{true}} />
+    <form.element @controlType="url" @label="Обложка" @placeholder="http://..." @property="cover" @required={{true}} />
+    <form.element @controlType="textarea" @label="Описание" @property="description" />
+</BsForm>
