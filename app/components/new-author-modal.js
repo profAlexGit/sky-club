@@ -4,12 +4,12 @@ import {tracked} from '@glimmer/tracking';
 import {inject as service} from '@ember/service';
 
 export default class NewAuthorModalComponent extends Component {
-	@tracked showModal = false;
+	@tracked showModalADD = false;
 	@service store;
 
 	@action
 	closeModal() {
-		this.showModal = false;
+		this.showModalADD = false;
 	}
 
 	author = {

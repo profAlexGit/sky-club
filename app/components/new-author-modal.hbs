@@ -1,6 +1,6 @@
-<button class="mt-3" type="button" class="btn btn-primary w-100" {{on "click" (fn (mut this.showModal) true)}}>Новый автор</button>
+<button class="mt-3" type="button" class="btn btn-primary w-100" {{on "click" (fn (mut this.showModalADD) true)}}>Новый автор</button>
 
-<BsModal @onHidden={{action this.closeModal}} @open={{this.showModal}} as |Modal|>
+<BsModal @scrollable={{true}} @onHidden={{action this.closeModal}} @open={{this.showModalADD}} as |Modal|>
     <Modal.header>
         <h4 class="modal-title">Добавление</h4>
     </Modal.header>
