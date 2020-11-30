@@ -1,8 +1,10 @@
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
+import {inject as service} from '@ember/service';
 
 export default class BookCardComponent extends Component {
+	@service store;
 	@tracked showModal = false;
 
 	title = this.args.book.title;
@@ -18,14 +20,20 @@ export default class BookCardComponent extends Component {
 	}
 
 	@action
+	async handleDeleteBook(id) {
+		const book = this.store.peekRecord('book', +id);
+		book.destroyRecord();
+	}
+
+	@action
 	handleClick() {
 		this.args.handleClick(this.id);
-    }
-    
-    @action
-    handleCardClick() {
-        this.showModal = true;
-    }
+	}
+
+	@action
+	handleCardClick() {
+		this.showModal = true;
+	}
 
 	@action
 	closeModal() {
