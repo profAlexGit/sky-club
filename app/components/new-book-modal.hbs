@@ -1,0 +1,14 @@
+<button type="button" class="btn btn-primary w-100" {{on "click" (fn (mut this.showModal) true)}}>Добавить новую книгу</button>
+
+<BsModal @onHidden={{action this.closeModal}} @open={{this.showModal}} as |Modal|>
+    <Modal.header>
+        <h4 class="modal-title">Добавление</h4>
+    </Modal.header>
+    <Modal.body>
+        <BookForm @book={{this.book}} @submit={{this.saveBook}} />
+    </Modal.body>
+    <Modal.footer as |footer|>
+        <BsButton @type="danger" @onClick={{action this.closeModal}}>Отменить</BsButton>
+        <BsButton @type="success" @onClick={{action Modal.submit}}>Сохранить</BsButton>
+    </Modal.footer>
+</BsModal>

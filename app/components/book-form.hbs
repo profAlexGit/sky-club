@@ -5,8 +5,13 @@
         <PowerSelect @searchEnabled={{true}} @onChange={{fn (mut this.author)}} @selected={{this.author}} @search={{action "searchAuthor"}} as |author|>
             {{author.lastName}} {{author.firstName}}
         </PowerSelect>
+        <NewAuthorModal @onSave={{fn (mut this.author)}}/>
     </form.group>
     <form.element @controlType="number" @label="Кол-во страниц" @placeholder="" @property="pages" @required={{true}} />
     <form.element @controlType="url" @label="Обложка" @placeholder="http://..." @property="cover" @required={{true}} />
     <form.element @controlType="textarea" @label="Описание" @property="description" />
+
+    <PowerSelectMultiple @searchEnabled={{true}} @options={{this.tagList}} @selected={{this.tags}} @placeholder="Select some tags..." @onChange={{fn (mut this.tags)}} as |tag|>
+        <span class="badge badge-success">{{tag}}</span>        
+    </PowerSelectMultiple>
 </BsForm>

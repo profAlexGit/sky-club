@@ -14,6 +14,20 @@ $ember-basic-dropdown-content-z-index: 2000;
 	align-items: center;
 }
 
+.book-card-cover {
+	height: 35%;
+	object-fit: contain;
+}
+
+.book-card-description {
+	max-height: 35%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.3em;
+}
+
 @import "ember-power-select/themes/bootstrap";
 
 @import "ember-power-select";

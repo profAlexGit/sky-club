@@ -1,0 +1,22 @@
+{{#each this.meetingsList as |meeting|}}
+<tr>
+	<th scope="row">{{meeting.id}}</th>
+	<td>{{meeting.date}}</td>
+	<td>
+		<ul class="list-group list-group-flush">
+			{{#each meeting.reports as |report|}}
+			<li class="list-group-item">
+				<p>{{report.book.title}}</p>
+			</li>
+			{{/each}}
+		</ul>
+		<ul class="list-group list-group-flush">
+			{{#each meeting.orders as |order|}}
+			<li class="list-group-item">
+				<p>{{order.book.title}}</p>
+			</li>
+			{{/each}}
+		</ul>
+	</td>
+</tr>
+{{/each}}

@@ -1,0 +1,37 @@
+<BsModal @onHidden={{action this.closeModal}} @open={{this.showModal}} as |Modal|>
+    <Modal.header>
+        <h4 class="modal-title">Добавление</h4>
+    </Modal.header>
+    <Modal.body>
+        <BsForm @formLayout="vertical" @model={{this.model}} {{on "submit" this.saveOrder}} as |form|>
+            {{!-- <form.element @controlType="text" @label="Дата" placeholder="Дата" @property="date" required /> --}}
+
+            <form.group>
+                <label class="control-label">Готовность</label>
+                <EmberFlatpickr 
+                        @locale="ru" 
+                        @dateFormat="Y-m-d"
+                        @enableTime={{false}} 
+                        @minDate={{this.model.date}} 
+                        @allowInput={{true}} 
+                        @date={{this.model.date}} 
+                        @onChange={{onChangeDate}} 
+                    />
+            </form.group>
+
+            <form.group>
+                <label class="control-label">Книга</label>
+                <PowerSelect @searchEnabled={{true}} @onChange={{fn (mut this.model.book)}} @selected={{this.model.book}} @search={{action "searchBook"}} as |book|>
+                    {{book.title}}
+                </PowerSelect>
+            </form.group>
+
+            <NewBookModal @onSave={{fn (mut this.model.book)}}/>
+
+        </BsForm>
+    </Modal.body>
+    <Modal.footer as |footer|>
+        <BsButton @type="danger" @onClick={{action this.closeModal}}>Отменить</BsButton>
+        <BsButton @type="success" @onClick={{action Modal.submit}}>Сохранить</BsButton>
+    </Modal.footer>
+</BsModal>

@@ -1,8 +1,25 @@
 <h1>Главная страница книжного клуба Skyory-club</h1>
-<LinkTo @route="books" @tagName="button">
-    Книги
+<LinkTo @route="books">
+	<button type="button" class="btn btn-primary">
+		Книги
+	</button>
 </LinkTo>
-<LinkTo @route="speakers" @tagName="button">
-    Спикепы
+<LinkTo @route="speakers">
+	<button type="button" class="btn btn-primary">
+		Спикеры
+	</button>
 </LinkTo>
+
+<div>
+	<BsNav @type="tabs" as |nav|>
+		<nav.item>
+			<nav.link-to @route="register">Регистрация</nav.link-to>
+		</nav.item>
+		<nav.item>
+			<nav.link-to @route="login">Вход</nav.link-to>
+		</nav.item>
+	</BsNav>
+	{{outlet}}
+</div>
+
 {{outlet}}

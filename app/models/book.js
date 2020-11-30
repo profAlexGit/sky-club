@@ -1,4 +1,4 @@
-import Model, {attr, belongsTo} from '@ember-data/model';
+import Model, {attr, belongsTo, hasMany} from '@ember-data/model';
 
 export default class BookModel extends Model {
 	@attr title;
@@ -8,5 +8,10 @@ export default class BookModel extends Model {
 	@attr tags;
     @attr raiting;
     
-    @belongsTo('author') author;
+	@belongsTo('author') author;
+	@hasMany('report') reports;
+
+	get getReports() {
+		return this.reports;
+	}
 }

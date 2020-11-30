@@ -1,0 +1,41 @@
+<div class="container-fluid my-3">
+	<div class="row">
+		<div class="col-2">
+			<LinkTo @route="admin-panel.create-meeting">
+				<button type="button" class="btn btn-primary w-100">
+					Создать встречу
+				</button>
+			</LinkTo>
+
+			<div class="my-3">
+				<p class="text-muted">Сортировать по статусу</p>
+				<PowerSelect @searchEnabled={{true}} @options={{this.statuses}} @onChange={{fn (mut this.status)}} @selected={{this.status}} as |status|>
+					{{status}}
+				</PowerSelect>
+			</div>
+
+			<div class="my-3">
+				<p class="text-muted">Сортировать по докладчику</p>
+				<PowerSelect @searchEnabled={{true}} @options={{this.speakers}} @onChange={{this.handleChangeSpeaker}} @selected={{this.speaker}} as |speaker|>
+					{{speaker.fullName}}
+				</PowerSelect>
+			</div>	
+		</div>
+	
+		<div class="col">
+			{{#if isLoading}}
+			<Spinner />
+			{{else}}
+			<div class="d-flex justify-content-start">
+				{{#each this.model as |meeting|}}
+				<MeetingCard @meeting={{meeting}} />
+				{{/each}}
+			</div>
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+
+
+{{outlet}}

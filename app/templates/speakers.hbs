@@ -23,7 +23,7 @@
 		{{#each this.model as |speaker|}}
 		<tr>
 			<th scope="row">{{speaker.id}}</th>
-			<td>{{speaker.fullName}}</td>
+			<td {{on 'click' (fn this.handleClickSpeaker speaker.id) }}>{{speaker.fullName}}</td>
 			<td>
 				<LinkTo @route="speakers.edit" @model={{speaker.id}}>
 					<button type="button" class="btn btn-primary">

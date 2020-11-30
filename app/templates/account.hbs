@@ -1,0 +1,20 @@
+<div class="container">
+	<h2>{{this.model.fullName}}</h2>
+	<BsTab class="flex-column" as |tab|>
+		<tab.pane @title="Доклады">
+			<AccountReportOrderTable @list={{this.model.reports}} @meetingDate={{true}} />
+		</tab.pane>
+		<tab.pane @title="Заявки">
+			<div class="m-3">
+				<LinkTo @route="account.create-order">
+					<button type="button" class="btn btn-primary">
+						+
+					</button>
+				</LinkTo>
+			</div>
+			<AccountReportOrderTable @list={{this.newOrders}} @completeDate={{true}} @delete={{this.deleteOrder}} @edit={{true}} />
+		</tab.pane>
+	</BsTab>
+	
+	{{outlet}}
+</div>

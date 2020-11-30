@@ -4,10 +4,13 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
-    'ember-bootstrap': {
-      bootstrapVersion: 4,
-      importBootstrapCSS: false
-    }
+		'ember-bootstrap': {
+			bootstrapVersion: 4,
+			importBootstrapCSS: false,
+		},
+		flatpickr: {
+			theme: 'material_blue',
+		},
   });
 
   // Use `app.import` to add additional libraries to the generated

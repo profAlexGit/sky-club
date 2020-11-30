@@ -1,0 +1,13 @@
+<div class={{this.cardClass}} style="width: 30%">
+    <div class="card-body">
+        <h5 class="card-title">Встреча {{this.statusOrDate}}</h5>
+        <h3>В программе:</h3>
+        <ul class="list-group list-group-flush">
+            {{#each this.reports as |report|}}
+            <li class={{this.listItemClass}}>
+                <p><strong>{{report.speaker.fullName}}</strong>: {{report.book.title}}</p>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>

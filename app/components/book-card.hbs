@@ -1,0 +1,23 @@
+<div class="card p-3 mr-3" style="width: 18rem;" {{on 'click' this.handleCardClick}}>
+	<img src={{this.cover}} class="card-img-top book-card-cover" alt="...">
+	<div class="card-body d-flex flex-column justify-content-around">
+		<h5 class="card-title">{{this.title}}</h5>
+		<p class="card-text book-card-description">{{this.description}}</p>
+		<div class="d-inline flex-wrap">
+			{{#each this.tags as |tag|}}
+			<span class="badge badge-success">{{tag}}</span>
+			{{/each}}
+		</div>
+
+		<div><strong>Оценка: </strong>{{this.raiting}}</div>
+		<LinkTo @route="books.edit" @model={{this.id}}>
+			<button type="button" class="btn btn-primary w-100">
+				редактировать
+			</button>
+		</LinkTo>
+	</div>
+</div>
+
+{{#if this.showModal}}
+	<BookInfoModal @id={{this.id}} @showModal={{this.showModal}} @closeModal={{this.closeModal}}/>
+{{/if}}

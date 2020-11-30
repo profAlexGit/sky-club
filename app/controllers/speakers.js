@@ -14,4 +14,9 @@ export default class SpeakersController extends Controller {
 		const speaker = this.store.peekRecord('speaker', id);
 		speaker.destroyRecord();
 	}
+
+	@action
+	handleClickSpeaker(id) {
+		this.transitionToRoute(`speakers.info`, id);
+	}
 }

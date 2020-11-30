@@ -6,13 +6,15 @@ import {tracked} from '@glimmer/tracking';
 export default class BookFormComponent extends Component {
 	@service store;
 
+	tagList = ['detective', 'novel', 'adventures', 'comedy'];
+
 	@tracked title = this.args.book.title;
 	@tracked pages = this.args.book.pages;
 	@tracked description = this.args.book.description;
 	@tracked cover = this.args.book.cover;
 	@tracked author = this.args.book.author;
-	@tracked tags = this.args.book.tags;
 	@tracked raiting = this.args.book.raiting;
+	@tracked tags = this.args.book.tags;
 
 	@action
 	searchAuthor(query) {
@@ -24,12 +26,12 @@ export default class BookFormComponent extends Component {
 	async saveBook() {
 		this.args.submit({
 			title: this.title,
-            pages: this.pages,
-            description: this.description,
-            cover: this.cover,
+			pages: this.pages,
+			description: this.description,
+			cover: this.cover,
 			author: this.author,
 			tags: this.tags,
-			raiting: this.raiting
+			raiting: this.raiting,
 		});
 	}
 }

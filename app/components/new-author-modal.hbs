@@ -1,0 +1,14 @@
+<button class="mt-3" type="button" class="btn btn-primary w-100" {{on "click" (fn (mut this.showModal) true)}}>Новый автор</button>
+
+<BsModal @onHidden={{action this.closeModal}} @open={{this.showModal}} as |Modal|>
+    <Modal.header>
+        <h4 class="modal-title">Добавление</h4>
+    </Modal.header>
+    <Modal.body>
+        <AuthorForm @author={{this.author}} @submit={{this.saveAuthor}} />
+    </Modal.body>
+    <Modal.footer as |footer|>
+        <BsButton @type="danger" @onClick={{action this.closeModal}}>Отменить</BsButton>
+        <BsButton @type="success" @onClick={{action Modal.submit}}>Сохранить</BsButton>
+    </Modal.footer>
+</BsModal>

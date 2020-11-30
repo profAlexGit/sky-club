@@ -19,5 +19,17 @@ Router.map(function() {
   this.route('speakers', function() {
     this.route('edit', {path: '/:id/edit'});
     this.route('create');
+    this.route('info', {path: '/:id/info'});
   });
+  this.route('meetings');
+  this.route('account', function() {
+    this.route('create-order');
+    this.route('edit-order', {path: '/:id/edit-order'});
+  });
+  this.route('admin-panel', function() {
+    this.route('orders');
+    this.route('create-meeting');
+  });
+  this.route('register');
+  this.route('login');
 });

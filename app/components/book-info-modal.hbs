@@ -1,0 +1,35 @@
+
+
+<BsModal @onHidden={{action this.closeModal}} @open={{this.args.showModal}} as |Modal|>
+	<Modal.header>
+		<h4 class="modal-title">Информация</h4>
+	</Modal.header>
+	<Modal.body>
+		{{#if this.isLoading}}
+		<Spinner />
+		{{else}}
+			<img src={{this.book.cover}} class="book-card-cover d-block mx-auto mb-3" alt="...">
+			<div class="d-flex flex-column justify-content-around">
+				<h5 class="card-title font-weight-bold text-center">{{this.book.title}}</h5>
+				<p class="card-text book-card-description">{{this.book.description}}</p>
+				<div class="d-inline flex-wrap">
+					{{#each this.book.tags as |tag|}}
+					<span class="badge badge-success">{{tag}}</span>
+					{{/each}}
+				</div>
+				<div><strong>Оценка: </strong>{{this.book.raiting}}</div>
+
+				<h5 class="card-title mt-3">Доклады:</h5>
+				<ul class="list-group list-group-flush">
+					{{#each this.book.reports as |report|}}
+					<li class='list-group-item'>
+						<p><strong>Дата: </strong>{{report.getMeeting}}</p>
+						<p><strong>Спикер:</strong> {{report.getSpeaker}}</p>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+		{{/if}}
+		
+	</Modal.body>
+</BsModal>

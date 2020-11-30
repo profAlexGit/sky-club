@@ -13,7 +13,19 @@ export default class ApplicationAdapter extends JSONAPIAdapter {
 		}
 
 		if (modelName === 'book' && requestType === 'findRecord' && id) {
-			url += '?_embed=reviews';
+			url += '?_embed=reports';
+		}
+
+		if (modelName === 'speaker' && requestType === 'findRecord' && id) {
+			url+='?_embed=orders&_embed=reports'
+		}
+
+		if (modelName === 'meeting' && requestType === 'findAll') {
+			url += '?_embed=orders&_embed=reports';
+		}
+
+		if (modelName === 'order' && requestType === 'findAll') {
+			url += '?_sort=date';
 		}
 
 		return url;

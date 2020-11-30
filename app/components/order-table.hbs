@@ -1,0 +1,35 @@
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">книга</th>
+			<th scope="col">Готовность</th>
+			<th scope="col">Действия</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each @orders as |order|}}
+		<tr>
+			<td>{{order.book.title}}</td>
+			<td scope="col">{{order.getDate}}</td>
+			<td>
+				{{#if @admin}}
+				<LinkTo @route="account.edit-order" @model={{order.id}}>
+					<button type="button" class="btn btn-primary">
+						редактировать
+					</button>
+				</LinkTo>
+				<button type="button" class="btn btn-danger" {{on "click" (fn this.deleteOrder order.id) }}>
+					удалить
+				</button>
+				{{else}}
+					<LinkTo @route="account.edit-order" @model={{order.id}}>
+						<button type="button" class="btn btn-primary">
+							Добавить в план
+						</button>
+					</LinkTo>
+				{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>

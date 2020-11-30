@@ -13,16 +13,19 @@
 					<nav.linkTo @route="about">О клубе</nav.linkTo>
 				</nav.item>
 				<nav.item>
-					<nav.linkTo @route="meets">Встречи</nav.linkTo>
+					<nav.linkTo @route="meetings">Встречи</nav.linkTo>
 				</nav.item>
 				<nav.item>
 					<nav.linkTo @route="archive">Архив</nav.linkTo>
+				</nav.item>
+				<nav.item>
+					<nav.linkTo @route="admin-panel">Администрирование</nav.linkTo>
 				</nav.item>
 			</navbar.nav>
 
 			<navbar.nav as |nav|>
 				<nav.item>
-					<nav.linkTo @route="authorization">Войти</nav.linkTo>
+					<nav.linkTo @route="account">аккаунт</nav.linkTo>
 				</nav.item>
 			</navbar.nav>
 		</navbar.content>

@@ -1,0 +1,12 @@
+<ul class="list-group list-group-flush">
+	{{#each @orders as |order|}}
+	<li class={{@class}}>
+		<p>
+			<strong>Дата встречи: </strong>{{order.meeting.date}}
+		</p>
+		<p>
+			<strong>Название книги: </strong>{{order.book.title}}
+		</p>
+	</li>
+	{{/each}}
+</ul>

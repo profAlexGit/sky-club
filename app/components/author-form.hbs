@@ -1,0 +1,9 @@
+<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.saveAuthor}} as |form|>
+    <form.element @controlType="text" @label="Имя"  @property="firstName" as |el|>
+        <el.control placeholder="Название" required />
+    </form.element>
+    <form.element @controlType="text" @label="Фамилия"  @property="lastName" as |el|>
+        <el.control placeholder="Фамилия" required />
+    </form.element>
+    
+</BsForm>

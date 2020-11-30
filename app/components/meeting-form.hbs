@@ -1,0 +1,35 @@
+<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.saveOrder}} as |form|>
+
+    {{#if this.isHasPlan}}
+    <form.group>
+        <label class="control-label">Выбрать дату:</label>
+        <EmberFlatpickr @locale="ru" @dateFormat="Y-m-d" @enableTime={{false}} @minDate={{this.minDate}} @allowInput={{true}} @date={{this.date}} @onChange={{this.onChangeDate}} />
+    </form.group>
+    {{/if}}
+
+    <h3>Программа встречи</h3>
+    <ul class="list-group list-group-flush">
+        {{#each this.approveOrders as |order|}}
+        <li class="list-group-item" {{on 'click' (fn this.handleResetApprove order.id)}}>
+            <p><strong>{{order.speaker.fullName}}</strong>: {{order.book.title}}</p>
+            <p>Дата готовности: {{order.getDate}}</p>
+        </li>
+        {{/each}}
+    </ul>
+
+    <h3>Доступные заявки:</h3>
+    <ul class="list-group list-group-flush">
+        {{#each this.orders as |order|}}
+        <li class="list-group-item" {{on "click" (fn this.handleApprove order.id)}}>
+            <p><strong>{{order.speaker.fullName}}</strong>: {{order.book.title}}</p>
+            <p>Дата готовности: {{order.getDate}}</p>
+        </li>
+        {{/each}}
+    </ul>
+
+    {{!-- <NewBookModal @onSave={{fn (mut this.book)}} /> --}}
+
+</BsForm>
+
+
+

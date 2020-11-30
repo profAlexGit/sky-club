@@ -1,0 +1,34 @@
+<BsModal class="modal-dialog-scrollable" @onHidden={{action this.closeModal}} @open={{this.showModal}} @fade={{true}} as |Modal|>
+	<Modal.header>
+		<h4 class="modal-title">Информация</h4>
+	</Modal.header>
+	<Modal.body>
+		<p class="h3 text-secondary">{{this.model.fullName}}</p>
+		<h3 class="text-secondary">Участие во встречах клуба:</h3>
+		
+		<h4>Доклады:</h4>
+		{{#if @this.model.reports.length}}
+			<SpeakerInfoOrderList @orders={{this.model.reports}} @class='list-group-item list-group-item-success'/>
+		{{else}}
+			<p>Докладов нет</p>
+		{{/if}}
+
+		<h4>Предстоящие:</h4>
+		{{#if @this.model.validationOrders.length}}
+			<SpeakerInfoOrderList @orders={{this.model.validationOrders}} @class='list-group-item list-group-item-primary' />
+		{{else}}
+			<p>В предстоящих встречах спикер не выступает</p>
+		{{/if}}
+
+		<h3>Поданые заявки:</h3>
+		{{#if @this.model.inProgressOrders.length}}
+			<SpeakerInfoOrderList @orders={{this.model.inProgressOrders}} @class='list-group-item list-group-item-warning' />
+		{{else}}
+			<p>Нет поданых заявок</p>
+		{{/if}}
+
+	</Modal.body>
+	<Modal.footer as |footer|>
+		<BsButton @type="success" @onClick={{action this.closeModal}}>Закрыть</BsButton>
+	</Modal.footer>
+</BsModal>

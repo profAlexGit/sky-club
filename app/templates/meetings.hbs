@@ -1,0 +1,52 @@
+{{#if this.isLoading}}
+<Spinner />
+{{else}}
+
+<BsTab as |tab|>
+	<tab.pane @title="Все">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Имя</th>
+					<th scope="col">Книги</th>
+				</tr>
+			</thead>
+			<tbody>
+				<MeetingItem @meetings={{this.model}} />
+			</tbody>
+		</table>
+	</tab.pane>
+	<tab.pane @title="Прошедшие">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Имя</th>
+					<th scope="col">Книги</th>
+				</tr>
+			</thead>
+			<tbody>
+				<MeetingItem @meetings={{this.model}} @filter="complete" />
+			</tbody>
+		</table>
+	</tab.pane>
+	<tab.pane @title="Запланированные">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Имя</th>
+					<th scope="col">Книги</th>
+				</tr>
+			</thead>
+			<tbody>
+				<MeetingItem @meetings={{this.model}} @filter="active" />
+			</tbody>
+		</table>
+	</tab.pane>
+</BsTab>
+
+{{/if}}
+
+{{outlet}}

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="w-50 mx-auto my-3">
+        <BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.login}} as |form|>
+            <form.element @controlType="text" @label="Логин" @property="username" as |el|>
+                <el.control placeholder="Логин" required />
+            </form.element>
+            {{#each @errors.username as |error|}}
+            <span>{{error.message}}</span>
+            {{/each}}
+            <form.element @controlType="password" @label="Пароль" @property="password" as |el|>
+                <el.control placeholder="email" required />
+            </form.element>
+           
+            <form.submitButton>Войти</form.submitButton>
+        </BsForm>
+    </div>
+
+</div>

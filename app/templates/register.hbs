@@ -1,0 +1,31 @@
+{{yield}}
+
+<div class="container">
+	<div class="w-50 mx-auto my-3">
+		<BsForm @formLayout="vertical" @model={{this}} {{on "submit" this.handleRegister}} as |form|>
+			<form.element @controlType="text" @label="Логин" @property="username" as |el| >
+				<el.control placeholder="Логин" required />
+			</form.element>
+			{{#each this.errors.username as |error|}}
+				<span>{{error.message}}</span>
+			{{/each}}
+			<form.element @controlType="text" @label="email" @property="email" @required={{true}} as |el|>
+				<el.control placeholder="email" required/>
+				</form.element>
+			<form.element @controlType="text" @label="Имя" @property="firstName" as |el|>
+				<el.control placeholder="Имя" required />
+			</form.element>
+			<form.element @controlType="text" @label="Фамилия" @property="lastName" as |el|>
+				<el.control placeholder="Фамилия" required />
+			</form.element>
+			<form.element @controlType="password" @label="Пароль" @property="password" as |el|>
+				<el.control placeholder="password" required />
+			</form.element>
+			<form.element @controlType="password" @label="Повторите пароль" @property="passwordConfirmation" as |el|>
+				<el.control placeholder="password" required />
+			</form.element>
+			<form.submitButton>Зарегистрироваться</form.submitButton>
+		</BsForm>
+	</div>
+
+</div>
